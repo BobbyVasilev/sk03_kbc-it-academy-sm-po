@@ -2,16 +2,20 @@
 
 Module 2, Lesson 2. Three short tasks, all in a browser.
 
-In Lesson 1 your pipeline ended at the word **"deploy"** — deploy to *what*?
-Here you go and look at the *what*: you price a small service the way a business
-case is priced, put something live on the internet, and look inside a real cloud
-console.
+In Lesson 1 your pipeline ended at the word **"deploy"**. Deploy to *what*,
+though? This homework goes and looks at the *what*. You price a small service the
+way a business case is priced, put something live on the internet, and look
+around inside a real cloud console.
 
 **About 55 minutes in total.** Do them in any order, on any day. Task 2 is the
 quickest and the most satisfying, so start there if you only have twenty minutes.
 
+**Nothing here is collected and nothing is scored.** These are exercises, not
+an assessment — do as much as your week allows. One task done properly is worth
+more than three skimmed.
+
 **You will never need a credit card.** If a screen asks for card details, you have
-wandered onto a paid path — back out. Nothing here needs one.
+wandered onto a paid path. Back out. Nothing here needs one.
 
 ---
 
@@ -25,18 +29,18 @@ wandered onto a paid path — back out. Nothing here needs one.
 
 **Three ground rules:**
 
-- Use a **personal email address**, not your UBB account, for these sign-ups.
-- Don't put real personal or bank data anywhere. Call things `demo01`, `hw-test`.
-- Never enter a card. Never click "Start free trial", "Activate account" or
+- Sign up with a **personal email address**, not your UBB account.
+- Do not put real personal or bank data anywhere. Call things `demo01`, `hw-test`.
+- Never enter a card, and never click "Start free trial", "Activate account" or
   "Add billing".
 
 ---
 
 ## Task 1 — Put a price on a small service *(~20 minutes, no login)*
 
-You're going to cost the kind of service a Product Owner actually sponsors: a
-small customer-facing API. Two always-on servers, some storage, and traffic going
-out to customers' phones.
+You are going to price the kind of service a Product Owner actually sponsors: a
+small API that customers use. Two servers that never switch off, some storage,
+and traffic going out to customers' phones.
 
 ### Build the estimate
 
@@ -72,7 +76,8 @@ out to customers' phones.
 
 ## Task 2 — Put something live on the internet *(~15 minutes)*
 
-The fastest way to feel what "deploy" means when there is no server to log into.
+This is the quickest way to see what "deploy" means when there is no server to
+log into at all.
 
 1. Create a free account at
    [dash.cloudflare.com/sign-up](https://dash.cloudflare.com/sign-up) — email and
@@ -83,26 +88,26 @@ The fastest way to feel what "deploy" means when there is no server to log into.
 5. Wait about twenty seconds. You get a live address like
    `https://hw-demo.<your-name>.workers.dev`. **Open it in a new tab.**
 
-That code is now running in hundreds of cities. You picked no server size, no
-operating system, no region, and no disk.
+Your code is now running in hundreds of cities. Notice what nobody asked you for:
+a server size, an operating system, a region, a disk.
 
 6. *(Optional, 2 minutes)* Click **Edit code**, change the text it returns to
    something of your own, and deploy again. Refresh your tab.
-7. **Tidy up:** go to your Worker's **Settings** and delete it. It costs nothing
-   to leave, but deleting what you create is a good habit.
+7. **Tidy up:** go to your Worker's **Settings** and delete it. Leaving it costs
+   nothing, but deleting what you create is a good habit to have.
 
 ### What to notice
 
-- How long the whole thing took, compared with getting a test environment at work.
-- How many decisions you were *not* asked to make.
+- How long that took, compared with getting a test environment at work.
+- How many decisions nobody asked you to make.
 - Look back at the IaaS / PaaS / SaaS slide. Which end of that scale is this?
 
 ---
 
 ## Task 3 — Look inside a real cloud *(~20 minutes)*
 
-Different console, same rules underneath. You get in with just a Google account,
-and you find the wall where "free to look around" stops.
+A different console, with the same rules underneath. A Google account gets you
+in, and then you go looking for the wall where "free to look around" stops.
 
 1. Go to [console.cloud.google.com](https://console.cloud.google.com) and sign in
    with your personal **Google account**. Accept the terms.
@@ -118,15 +123,15 @@ and you find the wall where "free to look around" stops.
    gcloud --version
    ```
 
-   You are now driving Google Cloud from a command line, at no cost. That is the
-   whole of step 3 — you don't need to understand the output.
+   You are now driving Google Cloud from a command line, and it costs nothing.
+   That is all of step 3. You do not need to understand the output.
 
 4. **Now find the wall.** In the search bar at the top type **Compute Engine**,
    open it, and click **Create instance**. Fill in nothing. Just read the screen:
    Google tells you a **billing account** is required before you can start a
    virtual machine.
 
-That message is the exact line between the free showroom and renting real
+That message is the exact line between the free showroom and actually renting
 capacity.
 
 ### What to notice
@@ -164,10 +169,11 @@ capacity.
 
 - Every resource starts with a **region**, because where the bytes physically sit
   is a regulated question before it is a technical one.
-- The bill isn't sent to you at the end. It is **designed in** at the start, in
-  choices about size, storage and traffic. That is why a PO should see it.
-- Whether a given system moves to a cloud like these is decided **system by
-  system** — which is exactly what the case study in the session was about.
+- The bill does not arrive at the end. It is **designed in** at the start, through
+  choices about size, storage and traffic. That is why a Product Owner should see
+  it.
+- Whether a particular system moves to a cloud like these is decided **system by
+  system**, which is exactly what the case study in the session was about.
 
 ---
 

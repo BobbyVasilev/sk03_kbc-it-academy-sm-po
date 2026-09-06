@@ -1,25 +1,29 @@
-# 🔁 CI/CD Pipelines — Homework Assignment
+# 🔁 CI/CD Pipelines — Homework
 
-Welcome to your hands-on homework for **Module 2, Lesson 1 — CI/CD Pipelines**.
+Welcome to the hands-on homework for **Module 2, Lesson 1 — CI/CD Pipelines**.
 
 In Module 1 you edited files on your own machine and opened them in a browser.
-This time you'll do something new: put a change through **GitHub itself**, and
-watch two automated pipelines react to it — exactly the way a real engineering
-team's changes get checked and shipped every day.
+This time you will do something new. You will put a change through **GitHub
+itself**, and watch two pipelines react to it on their own. This is how a real
+engineering team's changes get checked and shipped, every day.
 
-No coding experience is required, and you don't need to install anything. A
-browser and a free GitHub account are enough. Budget **up to 2 hours**; most
-people finish faster.
+You need no coding experience, and there is nothing to install. A browser and a
+free GitHub account are enough. Plan for **up to 2 hours**, though most people
+finish sooner.
+
+**Nothing here is collected and nothing is scored.** These are exercises, not
+an assessment — do as much as your week allows. One task done properly is worth
+more than three skimmed.
 
 ---
 
 ## What You Will Do
 
-1. **Fork** this repository to your own GitHub account and switch on Actions.
+1. **Fork** this repository into your own GitHub account and switch on Actions.
 2. **Task 1 — CI:** make a small change on a branch, open a pull request, and
-   watch a pipeline automatically build and check it.
+   watch a pipeline build and check it for you.
 3. **Task 2 — Publish:** create a GitHub Release, and watch a second pipeline
-   automatically package the apps and attach them to it.
+   package the apps and attach them to it.
 
 ---
 
@@ -45,8 +49,8 @@ people finish faster.
 
 ## Step 0 — Fork the Repository *(~5 minutes)*
 
-A "fork" is your own personal copy of this repository. You'll make all your
-changes there — the original repository stays untouched.
+A "fork" is your own personal copy of this repository. Everything you do happens
+in your copy, so you cannot break anything. The original stays exactly as it is.
 
 1. Open the repository: [github.com/turbobobbytraykov/sk03_kbc-it-academy-sm-po](https://github.com/turbobobbytraykov/sk03_kbc-it-academy-sm-po)
 2. Click **Fork** in the top-right corner.
@@ -60,23 +64,23 @@ From here on, always work in **your fork**, not the original repository.
 
 ## Step 1 — Enable GitHub Actions on Your Fork *(~2 minutes)*
 
-GitHub turns pipelines off by default on forks, as a safety measure. You only
-need to switch this on once.
+GitHub switches pipelines off by default on a fork, for safety. You only have to
+turn them on once.
 
 1. In your fork, click the **Actions** tab.
 2. You'll see a message saying workflows aren't running yet, with a green
    button: **"I understand my workflows, go ahead and enable them"**.
 3. Click it.
 
-That's it — both pipelines in this repository are now live on your fork.
+That is it. Both pipelines in this repository now work on your fork.
 
 ---
 
 ## Task 1 — CI Pipeline: Make a Change, Watch It Get Checked *(~30 minutes)*
 
-You're going to edit one line of text, and watch a pipeline automatically
-build the frontend and backend to make sure nothing broke — the same check a
-real pull request would get before anyone reviews it.
+You are going to change one line of text. A pipeline will then build the frontend
+and the backend on its own, to check that nothing broke. It is the same check a
+real pull request gets before a single person looks at it.
 
 1. In **your fork**, open the file `frontend/index.html`.
 2. Click the **pencil icon** ("Edit this file") near the top-right of the file view.
@@ -94,24 +98,23 @@ real pull request would get before anyone reviews it.
 6. Click **Propose changes**.
 7. On the next screen, double-check the base repository is **your own fork** (not `turbobobbytraykov/...`) — then click **Create pull request**.
 8. Wait about a minute, then refresh the page. You should see one or two checks appear near the bottom of the pull request, each showing a spinner, then a green ✔ or a red ✘.
-9. Click **Details** next to a check to open its log. Skim it — this is the pipeline compiling the backend and validating the frontend, step by step, exactly as described in the lecture.
+9. Click **Details** next to a check to open its log. Have a skim through it. This is the pipeline compiling the backend and checking the frontend, step by step, exactly as described in the lecture. You are not expected to follow every line.
 10. Once everything is green, click **Merge pull request**, then **Confirm merge**.
 
-**If a check turns red:** open its log the same way — the error message will point at what failed. This is normal and part of the point: the pipeline catches a broken change before it reaches anyone else.
+**If a check turns red, that is fine.** Open its log the same way, and the error message will tell you what failed. This is the whole point of the exercise: the pipeline caught a broken change before it reached anybody else.
 
 ---
 
 ## Task 2 — Publish Pipeline: Cut a Release, Watch It Get Packaged *(~35 minutes)*
 
-Now you'll trigger the second pipeline — the one that packages the finished
-apps and attaches them to a release, the same way a team ships a versioned
-build.
+Now you set off the second pipeline. This one packages the finished apps and
+attaches them to a release, the way a team ships a version of its product.
 
 ### 2a. Create the `production` environment
 
 1. In your fork, go to **Settings → Environments**.
 2. Click **New environment**, name it exactly `production`, then click **Configure environment**.
-3. You don't need to add any protection rules — click through with the defaults. (There's an optional way to try this in the Bonus section below.)
+3. You do not need to add any protection rules. Click through with the defaults. (If you want to try one, there is an optional version in the Bonus section below.)
 
 ### 2b. Publish a release
 
@@ -131,11 +134,11 @@ build.
 
 ## Bonus Challenges 🌟
 
-Finished early? Try one of these optional extras:
+Finished early, and curious? Try one of these. They are all optional.
 
-1. **Experience an approval gate.** On the `production` environment (Settings → Environments → production), add yourself as a **required reviewer**. Publish a new release and watch the pipeline pause, waiting for your approval, before it packages anything — this is the "release approval process" mentioned in the lecture, in miniature.
-2. **Ship a second version.** After your Task 1 pull request is merged, cut a new release, `v1.1.0`. Download the new `frontend.zip` and confirm your footer change is inside it.
-3. **Read the backend build log closely.** Find the line where the pipeline runs `monolith.BankingApp` versus `microservices.App` — it's the same monolith-vs-microservices comparison from Module 1, now running automatically inside a pipeline.
+1. **See an approval gate for yourself.** On the `production` environment (Settings → Environments → production), add yourself as a **required reviewer**. Publish a new release, and watch the pipeline stop and wait for you to approve it before it packages anything. This is the "release approval process" from the lecture, in miniature.
+2. **Ship a second version.** Once your Task 1 pull request is merged, create a new release called `v1.1.0`. Download the new `frontend.zip` and check that your footer change is inside it.
+3. **Read the backend build log closely.** Find the line where the pipeline runs `monolith.BankingApp`, and the one where it runs `microservices.App`. It is the same monolith-versus-microservices comparison from Module 1, only now it is running inside a pipeline.
 
 ---
 
@@ -155,10 +158,10 @@ Finished early? Try one of these optional extras:
 
 In real delivery teams:
 
-- Every pull request gets checked by a pipeline like this one, automatically, before a human ever reviews the code.
-- A **release** is a deliberate, versioned, human decision — the pipeline reacts to it, it doesn't decide it.
-- A `production` **environment** is where approvals, secrets, and audit trails live — the exact mechanism a bank relies on before anything reaches customers.
-- The gap between "the pipeline passed" and "this is safe to release" is exactly what Module 3 (Deployment & Release Strategies, Testing & Quality Gates) digs into next.
+- Every pull request is checked by a pipeline like this one before a single person reads the code.
+- A **release** is a deliberate, versioned, human decision. The pipeline reacts to it; it does not make it.
+- A `production` **environment** is where approvals, secrets and audit trails live. It is the same mechanism a bank relies on before anything reaches customers.
+- There is a gap between "the pipeline passed" and "this is safe to release". Module 3 — Deployment & Release Strategies, and Testing & Quality Gates — is about that gap.
 
 ---
 

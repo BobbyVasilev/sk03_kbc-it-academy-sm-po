@@ -1,39 +1,43 @@
-# 📦 Containers & Deployment Platforms — Homework Assignment
+# 📦 Containers & Deployment Platforms — Homework
 
-Welcome to your hands-on homework for **Module 2, Lesson 3 — Containers &
+Welcome to the hands-on homework for **Module 2, Lesson 3 — Containers &
 Deployment Platforms**.
 
-In Lesson 1 your pipeline produced an **artifact**. In Lesson 2 you went inside a
-cloud **console**. This time you meet the thing in the middle: you'll start a
-real **container** in your browser, look at what's inside it, then hand a few
-containers to a small **Kubernetes** cluster and watch it keep them running
-without being asked.
+In Lesson 1 your pipeline produced an **artifact**. In Lesson 2 you looked around
+a cloud **console**. This time you meet the thing in the middle. You will start a
+real **container** in your browser and look at what is inside it. Then you will
+hand a container to a small **Kubernetes** cluster and watch it keep the thing
+running without being asked.
 
-Everything runs on a **free website in your browser**. You install nothing. This
-matters: containers normally want a Linux machine with a few GB of RAM to spare,
-and a training laptop is the wrong place to find that. The playgrounds below give
-you throwaway Linux machines for as long as you need them, which is all this
-exercise takes.
+Everything runs on a **free website in your browser**, and you install nothing.
+That matters here: containers normally want a Linux machine with a few spare GB
+of memory, and a work laptop is the wrong place to look for one. The playgrounds
+below lend you a throwaway Linux machine for as long as you need it, which is all
+this exercise takes.
 
-No coding experience is required. **One free login** and a browser are enough.
-Budget **about 55 minutes** — most people finish faster. There is **less to do
-than last time**, on purpose.
+You need no coding experience. **One free login** and a browser are enough. Plan
+for **about 55 minutes**, though most people finish sooner. There is deliberately
+**less to do than last time**.
+
+**Nothing here is collected and nothing is scored.** These are exercises, not
+an assessment — do as much as your week allows. One task done properly is worth
+more than three skimmed.
 
 ---
 
 ## What You Will Do
 
-1. **Task 1 — Run a container.** Start a small container in a browser terminal,
-   look at it with `docker ps` / `logs` / `exec`, write a file inside it, throw
-   it away, start a fresh one, and see that your file is gone.
+1. **Task 1 — Run a container.** Start a small container in a browser terminal
+   and look at it with `docker ps`, `logs` and `exec`. Write a file inside it,
+   throw the container away, start a fresh one, and find that your file has gone.
 2. **Task 2 — Look inside a Pod.** Hand one container to a small Kubernetes
-   cluster, read what `kubectl describe pod` tells you, then delete the pod and
-   watch the cluster quietly replace it.
+   cluster and read what `kubectl describe pod` tells you. Then delete the pod
+   and watch the cluster quietly replace it.
 3. **Bonus — Scale it, then poke it.** Ask for four copies instead of one, delete
-   one at random, and see what the platform does.
+   one at random, and see what the platform does about it.
 
-Copy-paste commands are given for every step. You are not expected to remember
-any of them.
+Every step gives you the command to copy and paste. Nobody expects you to
+remember any of them.
 
 ---
 
@@ -58,29 +62,30 @@ any of them.
 or an email address. That is the only sign-up in this homework, and the same
 account covers both tasks.
 
-The free plan gives you **three virtual machines per day** and asks for **no
-credit card**. Task 1 uses one, Task 2 uses one, and the third is your spare if
-something goes wrong. Reading the pages costs nothing — only starting an
+The free plan gives you **three virtual machines a day** and asks for **no credit
+card**. Task 1 uses one and Task 2 uses one, so the third is your spare if
+something goes wrong. Reading the pages costs nothing. Only starting an
 environment uses one up.
 
-*(A note on why this page names specific websites: Docker's own "Play with
-Docker" playground, which this kind of exercise used for years, was shut down on
-1 March 2026. Everything below was re-checked in September 2026.)*
+*(Why does this page name specific websites? Docker's own "Play with Docker"
+playground, which exercises like this used for years, shut down on 1 March 2026.
+Everything below was re-checked in September 2026.)*
 
 **Ground rules:**
 
 - **Nothing to install.** Every command runs in a terminal *on the web page*.
 - **No credit card, ever.** None of these sites ask for one.
-- **Use a personal Google/GitHub account or a personal email**, not your UBB
-  account.
-- **Don't paste real personal or bank data anywhere.** Resource names can be
-  anything — `web`, `demo`, `hw`.
-- **Sessions are disposable** and wipe themselves when they end. That is fine —
-  and it is the same "environments that exist only while needed" idea from
-  Lesson 2. If a session ends mid-task, start a fresh one and carry on.
+- **Use a personal Google or GitHub account, or a personal email address** — not
+  your UBB account.
+- **Do not paste real personal or bank data anywhere.** Names can be anything:
+  `web`, `demo`, `hw`.
+- **Sessions are throwaway** and wipe themselves when they end. That is fine, and
+  it is the same "environments that exist only while you need them" idea from
+  Lesson 2. If a session ends in the middle of a task, start a fresh one and
+  carry on.
 
-**If a playground won't start for you**, each task below has its own *Plan B*
-box. They are all free and all work in a browser.
+**If a playground will not start for you**, each task below has its own *Plan B*
+box. They are all free, and they all work in a browser.
 
 ---
 
@@ -91,9 +96,9 @@ box. They are all free and all work in a browser.
 1. Go to the LabEx **Online Docker Playground**:
    [labex.io/tutorials/docker-online-docker-playground-372912](https://labex.io/tutorials/docker-online-docker-playground-372912)
 2. Sign in, then click **Launch Docker Playground (Free)**.
-3. Wait a few seconds for the environment to build. Choose the **Web Terminal**
-   view — you now have a real Linux machine with Docker already installed.
-   Everything below is typed (or pasted) into that terminal.
+3. Wait a few seconds while the environment builds, then choose the **Web
+   Terminal** view. You now have a real Linux machine with Docker already
+   installed. Everything below gets typed, or pasted, into that terminal.
 
 > **Plan B — iximiuz Labs.** [labs.iximiuz.com/playgrounds](https://labs.iximiuz.com/playgrounds)
 > → sign up (two clicks, GitHub / GitLab / Google) → start the **Docker**
@@ -116,7 +121,7 @@ Run these one at a time:
 docker run hello-world
 ```
 
-That pulled a tiny image and ran it once. Now start one that keeps running:
+That downloaded a tiny image and ran it once. Now start one that keeps running:
 
 ```
 docker run -d --name web nginx
@@ -124,8 +129,8 @@ docker ps
 docker logs web
 ```
 
-`docker ps` shows your container is up. `docker logs web` shows what it printed —
-this is the same "logs go to stdout" point from the lecture.
+`docker ps` shows your container is up. `docker logs web` shows what it printed.
+This is the same "logs go to stdout" point from the lecture.
 
 Now step inside it:
 
@@ -133,15 +138,15 @@ Now step inside it:
 docker exec -it web sh
 ```
 
-Your prompt changes — you are now *in* the container. Look around:
+Your prompt changes. You are now *inside* the container. Have a look around:
 
 ```
 ls /
 cat /etc/os-release
 ```
 
-Notice how little is there: no second operating system, just enough files to run
-one web server. Leave a mark and exit:
+Notice how little is in there. No second operating system, just enough files to
+run one web server. Leave your mark and exit:
 
 ```
 echo "homework by <your name>" > /tmp/note.txt
@@ -149,16 +154,16 @@ cat /tmp/note.txt
 exit
 ```
 
-You're back on the host machine. Now ask the *host* what that container really is:
+You are back on the host machine. Now ask the *host* what that container really is:
 
 ```
 docker top web
 ```
 
-There it is — an ordinary Linux process, with an ordinary process ID, running on
-the machine you were already logged into. That is the whole trick. A container
-isn't a small computer; it's a process the kernel has been told to keep in its
-own corner.
+There it is: an ordinary Linux process, with an ordinary process ID, running on
+the machine you were already logged into. That is the whole trick. A container is
+not a small computer. It is a process that the operating system has been told to
+keep in its own corner.
 
 ### 1c. Throw it away and start again
 
@@ -169,15 +174,16 @@ docker exec web cat /tmp/note.txt
 ```
 
 The last command fails: **`No such file or directory`**. Same image, brand-new
-container, and your file is gone. Anything written inside a running container
-lives only in its throwaway writable layer. This is why "just SSH in and fix it"
-is not a thing with containers.
+container, and your file has gone. Anything written inside a running container
+lives in a throwaway layer that dies with it. This is why "just log in and fix
+it" does not work with containers.
 
-**Close the environment when you're done** — Task 2 uses a different one.
+**Close the environment when you have finished.** Task 2 uses a different one.
 
-### 1d. Deliverable
+### 1d. What you should have
 
-A screenshot of the failed `cat /tmp/note.txt`, plus **three sentences**:
+A failed `cat /tmp/note.txt` on your screen — screenshot it if you keep notes.
+Then answer these three for yourself:
 
 - What surprised you about what was (or wasn't) inside the container?
 - Where did your `note.txt` file go, and why?
@@ -199,9 +205,9 @@ kubectl get nodes
 kubectl version
 ```
 
-One node, and a Kubernetes version number. It is a small cluster — a single
-machine doing both jobs — but it is a real one, running a real Kubernetes API.
-Every command below is the same command you would type against the cluster
+One node, and a Kubernetes version number. It is a small cluster: a single
+machine doing both jobs. But it is a real one, running a real Kubernetes API, and
+every command below is the same command you would type against the cluster
 running a bank's production services.
 
 > **Plan B — iximiuz Labs.** Start the **Kubernetes Cluster (K3s)** playground:
@@ -225,17 +231,17 @@ kubectl get pods
 ```
 
 Run `kubectl get pods` a couple of times until the pod shows `Running`. You asked
-for one copy of `nginx`; the cluster created a **pod** to hold it and is now
-responsible for keeping it alive.
+for one copy of `nginx`. The cluster made a **pod** to hold it, and from now on
+keeping it alive is the cluster's job, not yours.
 
 ```
 kubectl get pods -o wide
 ```
 
-This adds two columns: the pod's own **IP address** and the **node** it landed
-on. You didn't choose either — the scheduler placed the pod and the network gave
-it an address. On a cluster with more than one machine, that `NODE` column is
-where you find out which server your service is actually running on.
+This adds two columns: the pod's own **IP address**, and the **node** it landed
+on. You chose neither. The scheduler placed the pod, and the network gave it an
+address. On a cluster with more than one machine, that `NODE` column is how you
+find out which server your service is actually running on.
 
 ### 2c. Read the pod's description
 
@@ -245,7 +251,7 @@ Copy the pod name from the list (it looks like `web-xxxxxxxxxx-yyyyy`) and run:
 kubectl describe pod <paste-the-pod-name-here>
 ```
 
-Find these five lines in the output — this is the whole point of the task:
+Find these five lines in the output. They are the whole point of the task:
 
 | Look for | What it tells you |
 |---|---|
@@ -262,14 +268,15 @@ kubectl delete pod <the-same-pod-name>
 kubectl get pods
 ```
 
-Within a few seconds a **new pod appears with a new name**. You told the cluster
-"I want one copy of this running" once, and it holds that true — you don't have
-to ask again. Nobody was paged. That is self-healing, and the lecture's warning
-is that it treats a healthy pod exactly the same way when a probe is wrong.
+Within a few seconds a **new pod appears, with a new name**. You told the cluster
+"I want one copy of this running" once, and it keeps that true. You never have to
+ask again, and nobody was woken up. That is self-healing. The warning from the
+lecture still stands, though: the platform treats a perfectly healthy pod exactly
+the same way when a health check is wrong.
 
-### 2e. Deliverable
+### 2e. What you should have
 
-A screenshot of your `kubectl describe pod` output, plus **two sentences**:
+Your `kubectl describe pod` output on screen. Then answer these two for yourself:
 
 - What was the `Restart Count` on your pod, and what would a high number there
   tell you about a service?
@@ -277,49 +284,48 @@ A screenshot of your `kubectl describe pod` output, plus **two sentences**:
 
 ---
 
-## Reflection — the part you hand in *(~10 minutes)*
+## Reflection *(~10 minutes)*
 
-Half a page, in your own words. Don't recap the steps — answer these:
+Half a page, in your own words, for nobody but you. Don't recap the steps —
+answer these:
 
 1. Which lesson takeaway did you actually **feel** during this homework, rather
    than just hear in the room? Point to the exact moment.
-2. In Task 1 you couldn't keep a file inside a container. In Task 2 you couldn't
-   keep a pod from being replaced. What do both of those tell you about where a
-   service is allowed to store anything important?
+2. In Task 1 you could not keep a file inside a container. In Task 2 you could
+   not stop a pod being replaced. Taken together, what do those two things tell
+   you about where a service is allowed to store anything important?
 3. **Bring to next session:** pick one service you work with or hear about in
    stand-ups, and give a one-line answer to: *is it stateless, stateful, or
    secretly stateful?* Be ready to say why.
-
-We open the next session by reading a few of these out.
 
 ---
 
 ## Bonus Challenge 🌟 — Scale it, then poke it
 
-Still in the Task 2 Kubernetes playground, and finished early:
+Still in the Task 2 Kubernetes playground, with time to spare?
 
 ```
 kubectl scale deployment web --replicas=4
 kubectl get pods
 ```
 
-Four pods now, from one command — that's horizontal scaling. Nothing was made
-bigger; there are simply more copies. Delete one at random:
+Four pods now, from one command. That is horizontal scaling: nothing got bigger,
+there are simply more copies. Delete one at random:
 
 ```
 kubectl delete pod <any-one-of-the-four>
 kubectl get pods
 ```
 
-You're back to four within seconds: the cluster noticed it was one short of what
-you asked for and fixed it. Scale back down when you're done:
+You are back to four within seconds. The cluster noticed it was one short of what
+you asked for, and fixed it. Scale back down when you have finished:
 
 ```
 kubectl scale deployment web --replicas=1
 ```
 
-**Deliverable:** one sentence in your reflection — what did the platform do
-without you telling it to, step by step, and which slide does that match?
+**Worth writing down:** one sentence — what did the platform do without you
+telling it to, step by step, and which slide does that match?
 
 ---
 
@@ -343,18 +349,18 @@ without you telling it to, step by step, and which slide does that match?
 
 ## The Bigger Picture
 
-- A container is not a shrunken server. It's one process, a slice of a filesystem,
-  and a set of limits — which is why it starts in a second, why `docker top` shows
-  it as an ordinary process, and why it can't keep anything.
-- "Fix it in production by hand" doesn't survive the next restart. The only way
-  to change what runs is to build a new image and deploy it — a delivery task,
-  not a sysadmin one.
-- A Pod is the smallest unit a platform will manage for you: one IP, one
+- A container is not a shrunken server. It is one process, a slice of a
+  filesystem and a set of limits. That is why it starts in a second, why
+  `docker top` shows it as an ordinary process, and why it cannot keep anything.
+- "Fix it in production by hand" does not survive the next restart. The only way
+  to change what runs is to build a new image and deploy it, which makes it a
+  delivery task rather than a sysadmin one.
+- A Pod is the smallest thing a platform will look after for you: one IP, one
   lifecycle, one place to look. `describe pod` is the first thing anyone opens
   when a service misbehaves.
-- Self-healing and scaling are the platform doing work for you — and doing it
-  whether or not the thing it's reacting to is actually broken. Module 3 is about
-  making those reactions deliberate.
+- Self-healing and scaling are the platform doing work on your behalf. It does
+  that work whether or not the thing it is reacting to is really broken, and
+  Module 3 is about making those reactions deliberate.
 - Next: **[M2 L4] Platform & Environment Design** — how these building blocks get
   arranged into dev, test, staging and production, and who is allowed to touch
   each one.
@@ -434,8 +440,10 @@ more.
 - **Expected "aha" per task:** T1 — a container keeps nothing, and it was never a
   small computer. T2 — you declare a desired state once and the platform maintains
   it.
-- **Marking:** the reflection is the only graded artefact. Look for a specific
-  moment tied to a specific takeaway. Screenshots are a completion check only.
+- **Nothing is collected or scored.** Most participants will skip the homework;
+  this version is written so that doing only Task 1 is still worth something. If
+  someone does bring a reflection to you, look for a specific moment tied to a
+  specific takeaway.
 - **Ties back to:** M2 L1 (the artifact), M2 L2 ("deploy to what?", disposable
   environments, and the Cloud Shell they already opened). **Ties forward to:** the
   M2 L3 case (scaling backend services under load) and M2 L4 (environments).

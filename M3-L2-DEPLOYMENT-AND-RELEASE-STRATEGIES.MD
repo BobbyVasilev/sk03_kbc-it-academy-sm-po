@@ -1,34 +1,38 @@
-# 🚦 Deployment & Release Strategies — Homework Assignment
+# 🚦 Deployment & Release Strategies — Homework
 
-Welcome to your hands-on homework for **Module 3, Lesson 2 — Deployment &
-Release Strategies**.
+Welcome to the hands-on homework for **Module 3, Lesson 2 — Deployment & Release
+Strategies**.
 
 In Lesson 4 of Module 2 you made a pipeline **stop and wait for a human**. Somebody
 approved it, the deployment ran, and the job went green. This homework is about
-everything that happens *after* the green tick: whether a customer can actually see
+everything that happens *after* that green tick: whether a customer can actually see
 the change, how fast it spreads, and what you would do if it turned out to be wrong.
 
 Two of the three tasks happen in the same GitHub fork you have been using since
-Lesson 1 — nothing new to sign up for, nothing to install. The middle task needs no
-computer at all, only your own product and fifteen quiet minutes.
+Lesson 1, so there is nothing new to sign up for and nothing to install. The middle
+task needs no computer at all — only your own product and fifteen quiet minutes.
 
-Budget **about 60 minutes**.
+Plan for **about 60 minutes**.
+
+**Nothing here is collected and nothing is scored.** These are exercises, not
+an assessment — do as much as your week allows. One task done properly is worth
+more than three skimmed.
 
 ---
 
 ## What You Will Do
 
 1. **Task 1 — Ship a feature nobody can see.** Deploy a "new checkout screen" that
-   is switched off, then release it to customers by changing **one setting**,
-   without deploying anything. This is `deploy ≠ release` in two clicks.
+   is switched off. Then release it to customers by changing **one setting**,
+   without deploying anything at all. This is `deploy ≠ release`, in two clicks.
 2. **Task 2 — Write the rollback plan.** No tools. One page for your own product:
-   what goes back, what does not, who decides, how long it takes. The "what does
-   not" column is the whole point.
-3. **Task 3 — Watch a canary stop itself.** A rollout in three rings where ring 2
-   breaches its threshold — and ring 3 never runs.
+   what goes back, what does not, who decides, and how long it takes. The "what
+   does not" column is the whole point.
+3. **Task 3 — Watch a canary stop itself.** A rollout in three rings, where ring 2
+   goes past its limit and ring 3 never runs at all.
 
-Copy-paste is provided for every step. You are not expected to write any YAML from
-memory, or to understand every line of it.
+Every step gives you text to copy and paste. You are not expected to write any YAML
+from memory, or to understand every line of it.
 
 ---
 
@@ -53,27 +57,28 @@ memory, or to understand every line of it.
 `github.com/YOUR-USERNAME/sk03_kbc-it-academy-sm-po`, with Actions enabled, and the
 `test` and `production` environments you created for the Lesson 4 homework.
 
-**⚠️ Your fork must be public.** Environments, required reviewers and Actions
-minutes are free on **public** repositories only. If your fork is private, open
-**Settings → General → Danger Zone → Change repository visibility** and make it
-public. There is nothing sensitive in it.
+**⚠️ Your fork has to be public.** Environments, required reviewers and Actions
+minutes are only free on **public** repositories. If your fork is private, open
+**Settings → General → Danger Zone → Change repository visibility** and switch it.
+Nothing in the repository is sensitive, so this is safe to do.
 
-**If you have lost the fork, or skipped the earlier homework:** fork
+**Lost your fork, or skipped the earlier homework?** No problem. Fork
 [the repository](https://github.com/turbobobbytraykov/sk03_kbc-it-academy-sm-po)
-again, then open the **Actions** tab in your fork and click the green
-*"I understand my workflows, go ahead and enable them"* button. That is the whole of
-the catch-up — Task 1 and Task 3 do not need the environments from Lesson 4.
+again, open the **Actions** tab in your new copy, and click the green
+*"I understand my workflows, go ahead and enable them"* button. That is the whole
+catch-up: Task 1 and Task 3 do not need the environments from Lesson 4.
 
 ---
 
 ## Task 1 — Ship a Feature Nobody Can See *(~25 minutes)*
 
-The story: your team has finished a new one-click checkout screen. It is tested and
-it is ready. Your marketing colleagues want it live on Thursday, not today.
+Here is the story. Your team has finished a new one-click checkout screen. It is
+tested and it is ready. Your marketing colleagues want it live on Thursday, not
+today.
 
-Traditionally that means the code waits in a branch until Thursday. Here it does
-not. You are going to put the finished code into production **now**, switched off,
-and release it on Thursday by changing a setting.
+The traditional answer is that the code sits in a branch until Thursday. Not here.
+You are going to put the finished code into production **now**, switched off, and
+then release it on Thursday by changing a setting.
 
 ### 1a. Add the workflow
 
@@ -110,9 +115,9 @@ jobs:
         run: echo "FEATURE_NEW_CHECKOUT is currently '${{ vars.FEATURE_NEW_CHECKOUT }}'"
 ```
 
-Commit it **directly to `main`**. (If you commit to a new branch instead, the
-workflow will not appear in the Actions tab. This is the single most common
-stumble.)
+Commit it **directly to `main`**. If you commit it to a new branch instead, the
+workflow will not appear in the Actions tab. This is the most common place to get
+stuck.
 
 ### 1b. Deploy it with the feature off
 
@@ -126,8 +131,9 @@ FEATURE_NEW_CHECKOUT is currently ''
 ```
 
 Read that second line carefully. The flag **does not exist yet**, and the feature is
-off. An unset flag being off is not an accident — it is the property that makes this
-safe. The new code is in production and no customer can reach it.
+off. A flag that has never been set counting as "off" is not an accident. It is what
+makes the whole approach safe. The new code is in production, and no customer can
+reach it.
 
 ### 1c. Release it, without deploying anything
 
@@ -147,26 +153,26 @@ workflow** and run it again.
 FEATURE_NEW_CHECKOUT is currently 'on'
 ```
 
-**Stop and notice what you did not do.** You did not change a single line of code.
-You did not open a pull request. Nobody deployed anything. You changed a setting and
-the product behaved differently — and you could set it back to `off` just as fast.
+**Stop and notice what you did not do.** You changed no code. You opened no pull
+request. Nobody deployed anything. You changed one setting, the product behaved
+differently, and you could put it back to `off` just as quickly.
 
-That is the entire argument for feature flags, and it took you four clicks.
+That is the whole argument for feature flags, and it took you four clicks.
 
-### 1d. Deliverable
+### 1d. What you should have
 
-A screenshot of the *second* run's log, showing the NEW checkout line.
+The *second* run's log on screen, showing the NEW checkout line.
 
 ---
 
 ## Task 2 — Write the Rollback Plan *(~15 minutes, no tools)*
 
-This is the task with real work in it, and it is the one your colleagues will
-recognise on Monday.
+This is the task with real work in it, and the one your colleagues will recognise on
+Monday morning.
 
-Take **one real release** your product made recently, or is about to make. Fill in
-this table for it. Copy it into a document, an email to yourself, wherever you keep
-things.
+Take **one real release** your product made recently, or is about to make, and fill
+this table in for it. Keep it somewhere: a document, an email to yourself, wherever
+you keep things.
 
 | Question | Your answer |
 |---|---|
@@ -180,17 +186,17 @@ things.
 
 Two rules for filling it in:
 
-- **"I don't know" is a valid and useful answer.** Write it. An empty cell in this
-  table is a finding, not a failure — exactly as it was in the Lesson 4 grid.
-- **Be honest about the fourth row.** In a bank, the answer is often "a payment
+- **"I don't know" is a good answer.** Write it down. An empty cell in this table is
+  a finding, not a failure, exactly as it was in the Lesson 4 grid.
+- **Be honest about the fourth row.** In a bank the answer is often "a payment
   instruction that has already left". If that is true for your product, then you do
-  not have a rollback — you have a kill switch, or you have nothing. Better to know
-  that on a Tuesday afternoon than at two in the morning.
+  not have a rollback. You have a kill switch, or you have nothing. Far better to
+  find that out on a Tuesday afternoon than at two in the morning.
 
 > If you are not currently attached to a product, use one you hear discussed in
 > stand-ups, and mark it as an outside view.
 
-### 2a. Deliverable
+### 2a. What you should have
 
 The completed table. This is the one worth keeping.
 
@@ -198,8 +204,8 @@ The completed table. This is the one worth keeping.
 
 ## Task 3 — Watch a Canary Stop Itself *(~15 minutes)*
 
-A canary release is only worth having if something is actually watching it, and if
-somebody agreed **in advance** what would make it stop. Here you get to see that
+A canary release is only worth having if something is really watching it, and if
+somebody agreed **in advance** what would make it stop. Here you get to watch that
 happen.
 
 ### 3a. Add the workflow
@@ -250,50 +256,50 @@ Commit it directly to `main`.
 Watch the three rings on the left-hand side of the run:
 
 - **ring 1** goes green. Error rate below the threshold, so the rollout continues.
-- **ring 2** goes red. The error rate breached the number that was written down
+- **ring 2** goes red. The error rate went past the number that was written down
   before the release started.
 - **ring 3** is **cancelled — it never runs at all.**
 
-That third line is the point of the whole exercise. Nobody watched a dashboard and
-nobody made a judgement call under pressure. A threshold was agreed in advance, a
-ring breached it, and the customers in ring 3 never saw the change.
+That third line is the point of the whole exercise. Nobody sat watching a dashboard,
+and nobody made a judgement call under pressure. A limit was agreed in advance, one
+ring went past it, and the customers in ring 3 never saw the change at all.
 
-Two lines of configuration did that: `max-parallel: 1` made the rings go one at a
-time instead of all at once, and `fail-fast: true` stopped the queue when one
-failed. Take either of them away and you do not have a canary — you have a big bang
-in three pieces.
+Two lines of configuration did that. `max-parallel: 1` makes the rings go one at a
+time instead of all at once, and `fail-fast: true` stops the queue as soon as one
+fails. Take either one away and you no longer have a canary. You have a big bang in
+three pieces.
 
-### 3c. Deliverable
+### 3c. What you should have
 
-A screenshot of the run showing ring 1 green, ring 2 red, and ring 3 cancelled.
+The run on screen: ring 1 green, ring 2 red, ring 3 cancelled.
 
 ---
 
-## Reflection — the part you hand in *(~10 minutes)*
+## Reflection *(~10 minutes)*
 
-Write a short paragraph for each. There are no right answers, and the honest ones
-are the useful ones.
+A short paragraph each. These are for you, and nobody else reads them. There are no
+right answers, and the honest ones are the ones worth writing.
 
-1. **Which of the five strategies** — big bang, rolling, blue/green, canary, feature
-   flag — could your product realistically adopt in the next quarter? What would have
-   to be true first?
-2. In Task 1 you released a feature by changing a setting. **Who, in your
-   organisation, would be allowed to do that** for a real product? Is that the right
-   person?
-3. Task 2 asked what could not be undone. **What did you write?** And if the answer
-   was uncomfortable, what is the smallest thing that would improve it?
-4. Task 3 stopped a rollout automatically. **What number would you be willing to have
-   written down** as the thing that stops a release of yours — and who would have to
+1. **Of the five strategies** — big bang, rolling, blue/green, canary, feature flag —
+   which one could your product realistically adopt in the next quarter? What would
+   have to be true first?
+2. In Task 1 you released a feature by changing a setting. **Who in your organisation
+   would be allowed to do that** for a real product? Is that the right person?
+3. Task 2 asked what could not be undone. **What did you write?** If the answer made
+   you uncomfortable, what is the smallest thing that would improve it?
+4. Task 3 stopped a rollout on its own. **What number would you be willing to have
+   written down** as the thing that stops a release of yours, and who would have to
    agree to it?
 
-Question 4 is the opening question of the next lesson, so bring your answer.
+Question 4 opens the next lesson, so bring your answer with you.
 
 ---
 
 ## Bonus Challenge 🌟 — One flag, two environments
 
-Repository variables apply everywhere. **Environment** variables do not, and that is
-usually what you actually want: the feature on in `test`, off in `production`.
+A repository variable applies everywhere. An **environment** variable does not, and
+that is usually what you actually want: the feature on in `test`, off in
+`production`.
 
 1. Go to **Settings → Environments → test → Environment variables → Add variable**.
    Name `FEATURE_NEW_CHECKOUT`, value `on`.
@@ -303,10 +309,10 @@ usually what you actually want: the feature on in `test`, off in `production`.
 4. Add `environment: test` (and a second job with `environment: production`) to the
    Task 1 workflow, and run it.
 
-The same job definition, the same code, two different customer experiences —
-decided entirely by which environment the job is running in. If you also kept the
-required reviewer on `production` from Lesson 4, you now have a feature that is live
-for testers and requires a named human's approval before it reaches anybody else.
+The same job definition, the same code, two different customer experiences, decided
+entirely by which environment the job is running in. If you also kept the required
+reviewer on `production` from Lesson 4, you now have a feature that is live for
+testers and needs a named person's approval before it reaches anybody else.
 
 That is roughly what a real release process looks like.
 
@@ -327,22 +333,22 @@ That is roughly what a real release process looks like.
 
 ## The Bigger Picture
 
-Everything you did today was free, ran in a browser, and took an hour. In a bank the
-same three ideas cost real money and real argument:
+Everything you did today was free, ran in a browser, and took about an hour. Inside
+a bank, the same three ideas cost real money and real argument:
 
-- **The flag in Task 1** becomes a flag management system, someone to own it, and a
-  quarterly job of deleting the flags nobody removed. The four clicks are real; the
+- **The flag in Task 1** turns into a flag management system, somebody to own it, and
+  a quarterly job of deleting the flags nobody removed. The four clicks are real. The
   discipline behind them is the expensive part.
 - **The table in Task 2** is the conversation nobody schedules. It costs nothing to
-  fill in and it is the single most useful thing in this homework.
-- **The rings in Task 3** need a signal worth watching and enough traffic for the
+  fill in, and it is the single most useful thing in this homework.
+- **The rings in Task 3** need a signal worth watching, and enough traffic for the
   number to mean anything. A product with forty transactions an hour cannot learn
   much from one per cent of them.
 
-And one thing this homework deliberately does not show you: **blue/green**. It needs
-two running copies of production, which cannot be demonstrated for free in a browser,
-and faking it would undercut the section that says the second copy is what you are
-actually paying for.
+There is one thing this homework deliberately does not show you: **blue/green**. It
+needs two running copies of production, which cannot be done for free in a browser,
+and faking it would undercut the section that says the second copy is exactly what
+you are paying for.
 
 ---
 
@@ -366,9 +372,9 @@ actually paying for.
   show Task 3; the moment ring 3 goes grey is worth having for themselves.
 - **Expected "aha" per task:** T1 — the second run, with no code change. T2 — the
   fourth row. T3 — ring 3 cancelled.
-- **Marking:** the reflection is the only graded artefact; screenshots are a
-  completion check. Question 3 is the one worth reading properly — it tells you which
-  products in the room have no rollback at all.
+- **Nothing is collected or scored.** If someone does bring a reflection to you,
+  question 3 is the one worth reading properly — it tells you which products in the
+  room have no rollback at all.
 - **Ties back to:** M2 L1 (the fork and the pipeline), M2 L4 (the `test` and
   `production` environments, the required reviewer). **Ties forward to:** M3 L3
   (quality gates — question 4 of the reflection is that lesson's opening question)
